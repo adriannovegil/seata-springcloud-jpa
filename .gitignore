@@ -1,0 +1,4 @@
+/seata-account/target/
+/seata-order/target/
+/seata-inventory/target/
+/seata-eureka/target/
