@@ -13,24 +13,11 @@ services:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
         volumes:
-            - ./seata-account/db:/docker-entrypoint-initdb.d
+            - ./account-service/db:/docker-entrypoint-initdb.d
         entrypoint:
             sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
         ports:
             - 3306:3306
-
-    # Inventory Data Base
-    inventory-db:
-        image: mysql:5.7
-        environment:
-            - MYSQL_USER=root
-            - MYSQL_ROOT_PASSWORD=123456
-        volumes:
-            - ./seata-inventory/db:/docker-entrypoint-initdb.d
-        entrypoint:
-            sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
-        ports:
-            - 3307:3306
 
     # Order Data Base
     order-db:
@@ -39,8 +26,21 @@ services:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
         volumes:
-            - ./seata-order/db:/docker-entrypoint-initdb.d
+            - ./order-service/db:/docker-entrypoint-initdb.d
         entrypoint:
             sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
         ports:
             - 3308:3306
+
+    # Storage Data Base
+    storage-db:
+        image: mysql:5.7
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_ROOT_PASSWORD=123456
+        volumes:
+            - ./storage-service/db:/docker-entrypoint-initdb.d
+        entrypoint:
+            sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+        ports:
+            - 3307:3306
