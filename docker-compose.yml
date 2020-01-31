@@ -21,6 +21,7 @@ services:
         container_name: account-service
         depends_on:
             - discovery-server
+            - account-service-db                    
         entrypoint: ["sh", "-c","
             ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
             java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
@@ -47,6 +48,7 @@ services:
         container_name: order-service
         depends_on:
             - discovery-server
+            - order-service-db        
         entrypoint: ["sh", "-c","
             ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
             java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
@@ -60,6 +62,7 @@ services:
         container_name: storage-service
         depends_on:
             - discovery-server
+            - storage-service-db        
         entrypoint: ["sh", "-c","
             ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
             java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
@@ -78,8 +81,6 @@ services:
     account-service-db:
         image: mysql:5.7
         container_name: account-service-db
-        depends_on:
-            - account-service
         environment:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
@@ -94,8 +95,6 @@ services:
     order-service-db:
         image: mysql:5.7
         container_name: order-service-db
-        depends_on:
-            - order-service
         environment:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
@@ -110,8 +109,6 @@ services:
     storage-service-db:
         image: mysql:5.7
         container_name: storage-service-db
-        depends_on:
-            - storage-service
         environment:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
@@ -124,3 +121,7 @@ services:
 
     # Load
     # ==========================================================================
+    
+networks:
+    seata-springcloud-jpa:
+        external: true
