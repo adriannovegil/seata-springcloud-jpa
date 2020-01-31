@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:8-jre-alpine
 
 VOLUME /tmp
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh wait-for-it.sh
@@ -19,3 +19,4 @@ RUN touch /app.jar
 EXPOSE ${EXPOSED_PORT}
 
 ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+

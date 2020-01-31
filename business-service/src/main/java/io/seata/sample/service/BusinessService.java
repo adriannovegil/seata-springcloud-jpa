@@ -6,12 +6,6 @@ import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Description：
- *
- * @author fangliangsheng
- * @date 2019-04-05
- */
 @Service
 public class BusinessService {
 
@@ -21,11 +15,10 @@ public class BusinessService {
     private OrderFeignClient orderFeignClient;
 
     /**
-     * 减库存，下订单
-     *
+     * 
      * @param userId
      * @param commodityCode
-     * @param orderCount
+     * @param orderCount 
      */
     @GlobalTransactional
     public void purchase(String userId, String commodityCode, int orderCount) {

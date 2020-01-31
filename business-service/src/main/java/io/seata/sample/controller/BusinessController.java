@@ -12,9 +12,8 @@ public class BusinessController {
     private BusinessService businessService;
 
     /**
-     * 购买下单，模拟全局事务提交
-     *
-     * @return
+     * 
+     * @return 
      */
     @RequestMapping("/purchase/commit")
     public Boolean purchaseCommit() {
@@ -23,9 +22,8 @@ public class BusinessController {
     }
 
     /**
-     * 购买下单，模拟全局事务回滚
-     *
-     * @return
+     * 
+     * @return 
      */
     @RequestMapping("/purchase/rollback")
     public Boolean purchaseRollback() {

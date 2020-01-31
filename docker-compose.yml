@@ -1,14 +1,85 @@
 version: '3.3'
 services:
+    
+    # Infrastructure
+    # ==========================================================================
+    # Discovery service
+    discovery-server:
+        image: seata-springcloud-jpa/discovery-server
+        container_name: discovery-server
+        entrypoint: ["sh", "-c","            
+            java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+            -jar /app.jar"]
+        ports:
+            - 8761:8761
 
+    # Services
+    # ==========================================================================
+    # Account service
+    account-service:
+        image: seata-springcloud-jpa/account-service
+        container_name: account-service
+        depends_on:
+            - discovery-server
+        entrypoint: ["sh", "-c","
+            ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+            java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+            -jar /app.jar"]
+        ports:
+        - 8083:8083
+        
+    # Business service
+    business-service:
+        image: seata-springcloud-jpa/business-service
+        container_name: business-service
+        depends_on:
+            - discovery-server
+        entrypoint: ["sh", "-c","
+            ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+            java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+            -jar /app.jar"]
+        ports:
+        - 8084:8084
+        
+    # Order service
+    order-service:
+        image: seata-springcloud-jpa/order-service
+        container_name: order-service
+        depends_on:
+            - discovery-server
+        entrypoint: ["sh", "-c","
+            ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+            java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+            -jar /app.jar"]
+        ports:
+        - 8082:8082
+        
+    # Storage service
+    storage-service:
+        image: seata-springcloud-jpa/storage-service
+        container_name: storage-service
+        depends_on:
+            - discovery-server
+        entrypoint: ["sh", "-c","
+            ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+            java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+            -jar /app.jar"]
+        ports:
+        - 8081:8081
+
+    # Databases
+    # ==========================================================================
     # The official MySQL (https://hub.docker.com/_/mysql/) supports only one 
     # MYSQL_DATABASE environment variable.
     # By modifying the entrypoint and passing shell script, you can create multiple 
     # dbs without having to make a mysql image just for this purpose.
     
     # Account Data Base
-    account-db:
+    account-service-db:
         image: mysql:5.7
+        container_name: account-service-db
+        depends_on:
+            - account-service
         environment:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
@@ -20,8 +91,11 @@ services:
             - 3306:3306
 
     # Order Data Base
-    order-db:
+    order-service-db:
         image: mysql:5.7
+        container_name: order-service-db
+        depends_on:
+            - order-service
         environment:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
@@ -33,8 +107,11 @@ services:
             - 3308:3306
 
     # Storage Data Base
-    storage-db:
+    storage-service-db:
         image: mysql:5.7
+        container_name: storage-service-db
+        depends_on:
+            - storage-service
         environment:
             - MYSQL_USER=root
             - MYSQL_ROOT_PASSWORD=123456
@@ -44,3 +121,6 @@ services:
             sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
         ports:
             - 3307:3306
+
+    # Load
+    # ==========================================================================

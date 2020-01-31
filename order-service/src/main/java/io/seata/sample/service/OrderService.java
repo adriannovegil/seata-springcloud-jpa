@@ -9,12 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-/**
- * Description：
- *
- * @author fangliangsheng
- * @date 2019-04-04
- */
 @Service
 public class OrderService {
 
@@ -24,6 +18,12 @@ public class OrderService {
     @Autowired
     private OrderDAO orderDAO;
 
+    /**
+     * 
+     * @param userId
+     * @param commodityCode
+     * @param count 
+     */
     @Transactional
     public void create(String userId, String commodityCode, Integer count) {
 
@@ -38,7 +38,6 @@ public class OrderService {
         orderDAO.save(order);
 
         accountFeignClient.debit(userId, orderMoney);
-
     }
 
 }

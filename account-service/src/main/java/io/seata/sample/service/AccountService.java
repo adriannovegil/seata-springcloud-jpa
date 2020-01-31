@@ -8,12 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-/**
- * Description：
- *
- * @author fangliangsheng
- * @date 2019-04-05
- */
 @Service
 public class AccountService {
 
@@ -21,6 +15,11 @@ public class AccountService {
     @Autowired
     private AccountDAO accountDAO;
 
+    /**
+     * 
+     * @param userId
+     * @param num 
+     */
     @Transactional(rollbackFor = Exception.class)
     public void debit(String userId, BigDecimal num) {
         Account account = accountDAO.findByUserId(userId);

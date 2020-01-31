@@ -9,14 +9,13 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-/**
- * 数据源配置
- *
- * @author HelloWoodes
- */
 @Configuration
 public class DataSourceConfig {
 
+    /**
+     * 
+     * @return 
+     */
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DruidDataSource druidDataSource() {
@@ -24,10 +23,9 @@ public class DataSourceConfig {
     }
 
     /**
-     * 需要将 DataSourceProxy 设置为主数据源，否则事务无法回滚
-     *
-     * @param druidDataSource The DruidDataSource
-     * @return The default datasource
+     * 
+     * @param druidDataSource
+     * @return 
      */
     @Primary
     @Bean("dataSource")
