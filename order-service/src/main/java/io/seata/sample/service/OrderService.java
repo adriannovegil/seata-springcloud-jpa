@@ -1,7 +1,7 @@
 package io.seata.sample.service;
 
 import io.seata.sample.entity.Order;
-//import io.seata.sample.feign.AccountFeignClient;
+import io.seata.sample.feign.AccountFeignClient;
 import io.seata.sample.repository.OrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @Service
 public class OrderService {
 
-//    @Autowired
-//    private AccountFeignClient accountFeignClient;
+    @Autowired
+    private AccountFeignClient accountFeignClient;
 
     @Autowired
     private OrderDAO orderDAO;
@@ -37,7 +37,7 @@ public class OrderService {
 
         orderDAO.save(order);
 
-//        accountFeignClient.debit(userId, orderMoney);
+        accountFeignClient.debit(userId, orderMoney);
     }
 
 }
