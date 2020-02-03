@@ -20,3 +20,8 @@ are usually not enough and make the `docker-compose up` painfully slow.*
  * Gatling load generator. Load generation starts with a delay of 5 minutes! (To ensure that all services are up and running properly.)
 
 ```
+
+## References
+
+ * https://github.com/seata/seata
+ * https://github.com/seata/seata-go-server

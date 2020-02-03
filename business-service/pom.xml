@@ -54,10 +54,11 @@
         </dependency>
         
         <!-- SEATA dependencies -->
-        <!--        <dependency>
+        <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
-        </dependency>-->
+        </dependency>
+        
         
         <!-- Alibaba dependencies -->
         <!--        <dependency>

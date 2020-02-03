@@ -41,7 +41,6 @@
 
     <dependencyManagement>
         <dependencies>
-            
             <!-- Spring Cloud-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>

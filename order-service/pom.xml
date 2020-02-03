@@ -57,12 +57,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         
-        <!-- SEATA dependencies -->
-        <!--        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
-        </dependency>-->
-        
         <!-- Alibaba dependencies -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -72,6 +66,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-seata</artifactId>
         </dependency>-->
+        
+        <!-- SEATA dependencies -->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+        </dependency>
         
         <!-- MySQL dependencies -->
         <dependency>
