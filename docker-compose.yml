@@ -37,6 +37,7 @@ services:
       - ocelot-config-server
       - agent
     entrypoint: ["sh", "-c","
+      ./dockerize -wait=tcp://ocelot-config-server:8090 -timeout=300s -- &&
       java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
       -javaagent:/agent/inspectit-ocelot-agent.jar
       -jar /app.jar"]
@@ -57,9 +58,9 @@ services:
       - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
       - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
     entrypoint: ["sh", "-c","
-      java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
-      -javaagent:/agent/inspectit-ocelot-agent.jar
-      -jar /app.jar"]
+      /opt/seata/seata/bin/seata-server.sh"]
+    volumes:
+      - agent-vol:/agent
     ports:
       - 8091:8091
 

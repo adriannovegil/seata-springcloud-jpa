@@ -11,3 +11,14 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery-server:8761/eureka/
+     
+--- 
+service:
+  #transaction service group mapping
+  vgroup_mapping.business-service-fescar-service-group: "default"
+  #only support when registry.type=file, please don't set multiple addresses
+  default.grouplist: "seata-server:8091"
+  #degrade, current not support
+  enableDegrade: false
+  #disable seata
+  disableGlobalTransaction: false
