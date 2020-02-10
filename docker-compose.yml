@@ -56,7 +56,7 @@ services:
       - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
       - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
       - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans      
     entrypoint: ["sh", "-c","
       /opt/seata/seata/bin/seata-server.sh"]
     volumes:
