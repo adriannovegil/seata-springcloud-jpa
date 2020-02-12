@@ -50,12 +50,10 @@ seata:
     service:
         #transaction service group mapping
         vgroup-mapping: default
+        grouplist: "seata-server:8091"        
+        enable-degrade: false     
         #disable seata
-        disable-global-transaction: false
-        #degrade, current not support
-        enable-degrade: false
-        #only support when registry.type=file, please don't set multiple addresses
-        grouplist: "seata-server:8091"
+        disable-global-transaction: false           
     transport:
         shutdown:
             wait: 3
@@ -76,5 +74,61 @@ seata:
     eureka:
         application: default
         weight: 1
-        service-url: http://discovery-server:8761/eureka    
- 
+        service-url: http://discovery-server:8761/eureka
+    config:
+        type: file
+        file:
+            name: file.conf
+        consul:
+            server-addr: 127.0.0.1:8500
+        apollo:
+            apollo-meta: http://192.168.1.204:8801
+            app-id: seata-server
+            namespace: application
+        etcd3:
+            server-addr: http://localhost:2379
+        nacos:
+            namespace:
+            serverAddr: localhost
+            group: SEATA_GROUP
+        zk:
+            server-addr: 127.0.0.1:2181
+            session-timeout: 6000
+            connect-timeout: 2000
+    registry:
+        type: file
+        file:
+            name: file.conf
+        consul:
+            cluster: default
+            server-addr: 127.0.0.1:8500
+        etcd3:
+            cluster: default
+            serverAddr: http://localhost:2379
+        eureka:
+            application: default
+            weight: 1
+            service-url: http://discovery-server:8761/eureka
+        nacos:
+            cluster: default
+            server-addr: localhost
+            namespace:
+        redis:
+            server-addr: localhost:6379
+            db: 0
+            password:
+            cluster: default
+            timeout: 0
+        sofa:
+            server-addr: 127.0.0.1:9603
+            application: default
+            region: DEFAULT_ZONE
+            datacenter: DefaultDataCenter
+            cluster: default
+            group: SEATA_GROUP
+            addressWaitTime: 3000
+        zk:
+            cluster: default
+            server-addr: 127.0.0.1:2181
+            session-timeout: 6000
+            connect-timeout: 2000    
