@@ -35,6 +35,8 @@
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         
         <seata.version>1.0.0</seata.version>
+        <alibaba.cloud.version>2.2.0.RELEASE</alibaba.cloud.version>
+        <alibaba.druid.version>1.1.21</alibaba.druid.version>
         
         <!-- Docker plugin configuration -->
         <docker.image.prefix>seata-springcloud-jpa</docker.image.prefix>

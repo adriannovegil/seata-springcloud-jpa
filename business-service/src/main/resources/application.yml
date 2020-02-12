@@ -11,14 +11,61 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery-server:8761/eureka/
-     
+
 --- 
-service:
-  #transaction service group mapping
-  vgroup_mapping.business-service-fescar-service-group: "default"
-  #only support when registry.type=file, please don't set multiple addresses
-  default.grouplist: "seata-server:8091"
-  #degrade, current not support
-  enableDegrade: false
-  #disable seata
-  disableGlobalTransaction: false
+# https://github.com/seata/seata/blob/f1ee657f12607f38d95892a4b4e99364aab80963/script/client/spring/application.yml
+seata:
+    enabled: true
+    application-id: business-service
+    tx-service-group: seata_springcloud_jpa_group
+    enable-auto-data-source-proxy: true
+    use-jdk-proxy: false
+    client:
+        rm:
+        async-commit-buffer-limit: 1000
+        report-retry-count: 5
+        table-meta-check-enable: false
+        report-success-enable: true
+        lock:
+            retry-interval: 10
+            retry-times: 30
+            retry-policy-branch-rollback-on-conflict: true
+        tm:
+            commit-retry-count: 5
+            rollback-retry-count: 5
+        undo:
+            data-validation: true
+            log-serialization: jackson
+            log-table: undo_log
+        log:
+            exceptionRate: 100
+    service:
+        #transaction service group mapping
+        vgroup-mapping: default
+        #disable seata
+        disable-global-transaction: false
+        #degrade, current not support
+        enable-degrade: false
+        #only support when registry.type=file, please don't set multiple addresses
+        grouplist: "seata-server:8091" 
+    transport:
+        shutdown:
+            wait: 3
+        thread-factory:
+            boss-thread-prefix: NettyBoss
+            worker-thread-prefix: NettyServerNIOWorker
+            server-executor-thread-prefix: NettyServerBizHandler
+            share-boss-worker: false
+            client-selector-thread-prefix: NettyClientSelector
+            client-selector-thread-size: 1
+            client-worker-thread-prefix: NettyClientWorkerThread
+        type: TCP
+        server: NIO
+        heartbeat: true
+        serialization: seata
+        compressor: none
+        enable-client-batch-send-request: true
+    eureka:
+        application: default
+        weight: 1
+        service-url: http://discovery-server:8761/eureka    
