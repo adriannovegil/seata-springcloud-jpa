@@ -59,21 +59,11 @@
             <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
-<!--        <dependency>
-            <groupId>io.seta</groupId>
-            <artifactId>seata-spring-boot-starter</artifactId>
-            <version>${seata.version}</version>
-        </dependency>-->
         
         <!-- Alibaba dependencies -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-seata</artifactId>
-            <version>${alibaba.cloud.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
             <version>${alibaba.cloud.version}</version>
         </dependency>
         <dependency>
