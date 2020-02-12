@@ -95,24 +95,6 @@ services:
     ports:
       - 8761:8761
 
-  # SEATA server
-  seata-server:
-    build: ./docker/seata-server
-    image: seata-springcloud-jpa/seata-server
-    container_name: seata-server
-    environment:
-      - INSPECTIT_SERVICE_NAME=seata-server
-      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
-      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
-      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    entrypoint: ["sh", "-c","
-      /opt/seata/bin/seata-server.sh"]
-    volumes:
-      - agent-vol:/agent
-    ports:
-      - 8091:8091
-
   # Metrics
   # ============================================================================
   # InfluxDB
@@ -152,18 +134,43 @@ services:
     ports:
       - 9411:9411
 
-  # Load
+  # Distributed transactions
   # ============================================================================
-  # Load server
-  load-server:
-    build: ./docker/load-server
-    image: seata-springcloud-jpa/load-server
-    container_name: seata-load-server
+  # SEATA server
+  seata-server-db:
+    image: mysql:5.7
+    container_name: seata-server-db
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - ./docker/seata-server/db:/docker-entrypoint-initdb.d
+    entrypoint:
+      sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    ports:
+      - 3309:3306
+      
+  seata-server:
+    build: ./docker/seata-server
+    image: seata-springcloud-jpa/seata-server
+    container_name: seata-server
+    environment:
+      - INSPECTIT_SERVICE_NAME=seata-server
+      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
+      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
+      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
+      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+    entrypoint: ["sh", "-c","
+      /opt/seata/bin/seata-server.sh"]
     depends_on:
-      - account-service
-      - business-service
-      - order-service
-      - storage-service
+      - ocelot-config-server
+      - agent
+      - seata-server-db 
+      - influxdb-server
+    volumes:
+      - agent-vol:/agent
+    ports:
+      - 8091:8091
 
   # Services
   # ==========================================================================
@@ -273,6 +280,19 @@ services:
       - agent-vol:/agent
     ports:
       - 8081:8081
+
+  # Load
+  # ============================================================================
+  # Load server
+  load-server:
+    build: ./docker/load-server
+    image: seata-springcloud-jpa/load-server
+    container_name: seata-load-server
+    depends_on:
+      - account-service
+      - business-service
+      - order-service
+      - storage-service
 
 volumes:
   agent-vol:

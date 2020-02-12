@@ -31,7 +31,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
-        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         
         <seata.version>1.0.0</seata.version>
@@ -48,7 +48,23 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Cloud -->
+            <!-- Spring framework -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>5.0.4.RELEASE</version>
+            </dependency>
+            
+            <!-- Spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
+            <!-- Spring cloud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -56,46 +72,47 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
-            <!-- Spring Boot -->
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>        
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>2.2.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+                <version>2.2.1.RELEASE</version>
+            </dependency>
             
-            <!-- SEATA dependencies -->
-            <!--            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-all</artifactId>
-                <version>${seata.version}</version>
-            </dependency>-->
-            
-            <!-- Alibaba dependencies -->
-            <!--            <dependency>
+            <!-- Alibaba -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>1.1.10</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-seata</artifactId>
-                <version>2.0.0.RELEASE</version>
                 <exclusions>
                     <exclusion>
                         <groupId>io.seata</groupId>
                         <artifactId>seata-all</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>-->
+            </dependency>
             
-            <!-- MySQL dependencies -->
+            <!-- Seata -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            
+            <!-- MySQL -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.11</version>
-            </dependency>                                                
+            </dependency>            
         </dependencies>
     </dependencyManagement>
 
