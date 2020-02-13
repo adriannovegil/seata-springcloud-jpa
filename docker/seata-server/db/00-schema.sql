@@ -1,4 +1,8 @@
 -- -------------------------------- The script used when storeMode is 'db' --------------------------------
+DROP SCHEMA IF EXISTS seata;
+CREATE SCHEMA seata;
+USE seata;
+
 -- the table to store GlobalSession data
 CREATE TABLE IF NOT EXISTS `global_table`
 (

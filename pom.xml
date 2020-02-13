@@ -49,20 +49,20 @@
     <dependencyManagement>
         <dependencies>
             <!-- Spring framework -->
-            <dependency>
+<!--            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>5.0.4.RELEASE</version>
             </dependency>
             
-            <!-- Spring boot -->
+             Spring boot 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency>-->
             
             <!-- Spring cloud -->
             <dependency>
@@ -77,11 +77,11 @@
                 <artifactId>spring-cloud-starter-openfeign</artifactId>
                 <version>2.2.1.RELEASE</version>
             </dependency>
-            <dependency>
+<!--            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
                 <version>2.2.1.RELEASE</version>
-            </dependency>
+            </dependency>-->
             
             <!-- Alibaba -->
             <dependency>
@@ -89,7 +89,7 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>1.1.10</version>
             </dependency>
-            <dependency>
+<!--            <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-seata</artifactId>
                 <exclusions>
@@ -98,7 +98,7 @@
                         <artifactId>seata-all</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency>-->
             
             <!-- Seata -->
             <dependency>

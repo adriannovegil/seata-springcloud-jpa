@@ -56,11 +56,11 @@
         </dependency>
         
         <!-- Alibaba dependencies -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-seata</artifactId>
             <version>${alibaba.cloud.version}</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>

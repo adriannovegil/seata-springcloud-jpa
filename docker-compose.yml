@@ -50,7 +50,7 @@ services:
     ports:
       - 3307:3306
 
-  # InspectIT
+  # Metrics
   # ============================================================================
   # Agent
   agent:
@@ -60,15 +60,54 @@ services:
     volumes:
       - agent-vol:/agent
 
-  # Config server
+  # InfluxDB
+  influxdb-server:
+    image: influxdb:1.7.1
+    container_name: seata-influxdb-server
+    environment:
+      - INFLUXDB_HTTP_FLUX_ENABLED=true
+      - INFLUXDB_HTTP_LOG_ENABLED=false
+      - INFLUXDB_DATA_QUERY_LOG_ENABLED=false
+    volumes:
+      - ./docker/influxdb-server:/docker-entrypoint-initdb.d
+    ports:
+      - 8086:8086
+
+  # Agent config server
   ocelot-config-server:
     image: inspectit/inspectit-ocelot-configurationserver:${INSPECTIT_OCELOT_VERSION}
     container_name: ocelot-config-server
     environment:
       - INSPECTIT_CONFIG_SERVER_WORKING_DIRECTORY=/configuration-server
       - INSPECTIT_CONFIG_SERVER_DEFAULT_USER_PASSWORD=demo
+    depends_on:
+      - influxdb-server
     ports:
       - 8090:8090
+
+  # Grafana
+  grafana-server:
+    build: ./docker/grafana-server
+    image: seata/seata-grafana-server
+    container_name: seata-grafana-server
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=demo
+      - GF_PATHS_PROVISIONING=/usr/share/grafana/custom/
+    volumes:
+      - ./docker/grafana-server/provisioning:/usr/share/grafana/custom/
+    depends_on:
+      - influxdb-server
+    ports:
+      - 3000:3000
+
+  # Trazing
+  # ============================================================================
+  # Zipkin
+  zipkin-server:
+    image: openzipkin/zipkin
+    container_name: seata-zipkin-server
+    ports:
+      - 9411:9411
 
   # Infrastructure
   # ==========================================================================
@@ -95,48 +134,9 @@ services:
     ports:
       - 8761:8761
 
-  # Metrics
-  # ============================================================================
-  # InfluxDB
-  influxdb-server:
-    image: influxdb:1.7.1
-    container_name: seata-influxdb-server
-    environment:
-      - INFLUXDB_HTTP_FLUX_ENABLED=true
-      - INFLUXDB_HTTP_LOG_ENABLED=false
-      - INFLUXDB_DATA_QUERY_LOG_ENABLED=false
-    volumes:
-      - ./docker/influxdb-server:/docker-entrypoint-initdb.d
-    ports:
-      - 8086:8086
-
-  # Grafana
-  grafana-server:
-    build: ./docker/grafana-server
-    image: seata/seata-grafana-server
-    container_name: seata-grafana-server
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=demo
-      - GF_PATHS_PROVISIONING=/usr/share/grafana/custom/
-    volumes:
-      - ./docker/grafana-server/provisioning:/usr/share/grafana/custom/
-    depends_on:
-      - influxdb-server
-    ports:
-      - 3000:3000
-
-  # Trazing
-  # ============================================================================
-  # Zipkin
-  zipkin-server:
-    image: openzipkin/zipkin
-    container_name: seata-zipkin-server
-    ports:
-      - 9411:9411
-
   # Distributed transactions
   # ============================================================================
-  # SEATA server
+  # SEATA server database
   seata-server-db:
     image: mysql:5.7
     container_name: seata-server-db
@@ -149,7 +149,8 @@ services:
       sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
     ports:
       - 3309:3306
-      
+
+  # SEATA server
   seata-server:
     build: ./docker/seata-server
     image: seata-springcloud-jpa/seata-server
@@ -161,12 +162,12 @@ services:
       - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
       - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
     entrypoint: ["sh", "-c","
+      ./dockerize -wait=tcp://ocelot-config-server:8090 -timeout=300s -- &&
       /opt/seata/bin/seata-server.sh"]
     depends_on:
       - ocelot-config-server
       - agent
-      - seata-server-db 
-      - influxdb-server
+      - seata-server-db
     volumes:
       - agent-vol:/agent
     ports:
@@ -187,12 +188,11 @@ services:
     depends_on:
       - ocelot-config-server
       - agent
-      - discovery-server
       - account-service-db
+      - discovery-server
       - seata-server
-      - influxdb-server
     entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
       java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
       -javaagent:/agent/inspectit-ocelot-agent.jar
       -jar /app.jar"]
@@ -216,9 +216,8 @@ services:
       - agent
       - discovery-server
       - seata-server
-      - influxdb-server
     entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
       java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
       -javaagent:/agent/inspectit-ocelot-agent.jar
       -jar /app.jar"]
@@ -243,9 +242,8 @@ services:
       - discovery-server
       - order-service-db
       - seata-server
-      - influxdb-server
     entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
       java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
       -javaagent:/agent/inspectit-ocelot-agent.jar
       -jar /app.jar"]
@@ -270,9 +268,8 @@ services:
       - discovery-server
       - storage-service-db
       - seata-server
-      - influxdb-server
     entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -timeout=300s -- &&
+      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
       java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
       -javaagent:/agent/inspectit-ocelot-agent.jar
       -jar /app.jar"]

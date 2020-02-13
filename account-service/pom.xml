@@ -13,7 +13,7 @@
     <artifactId>account-service</artifactId>
     <packaging>jar</packaging>
     <name>account-service</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Account service</description>
 
     <properties>
         <docker.image.exposed.port>8888</docker.image.exposed.port>
@@ -60,11 +60,11 @@
         </dependency>
         
         <!-- Alibaba dependencies -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-seata</artifactId>
             <version>${alibaba.cloud.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
