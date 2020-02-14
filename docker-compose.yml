@@ -161,17 +161,20 @@ services:
       - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
       - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
       - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://ocelot-config-server:8090 -timeout=300s -- &&
-      /opt/seata/bin/seata-server.sh"]
+      - SEATA_PORT=8091
+      - STORE_MODE=db
     depends_on:
       - ocelot-config-server
       - agent
       - seata-server-db
+    entrypoint: ["sh", "-c","
+      ./dockerize -wait=tcp://ocelot-config-server:8090 -timeout=300s -- &&
+      /opt/seata/bin/seata-server.sh --storeMode db"]
     volumes:
       - agent-vol:/agent
     ports:
       - 8091:8091
+      - 9898:9898
 
   # Services
   # ==========================================================================
