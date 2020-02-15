@@ -48,13 +48,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <!-- SEATA dependencies -->
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-
         <!-- Alibaba dependencies -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
