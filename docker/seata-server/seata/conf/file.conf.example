@@ -26,6 +26,7 @@ transport {
   serialization = "seata"
   compressor = "none"
 }
+
 service {
   #transaction service group mapping
   vgroup_mapping.my_test_tx_group = "default"
