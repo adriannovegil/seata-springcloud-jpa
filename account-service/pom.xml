@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>io.seata.sample</groupId>
         <artifactId>seata-springcloud-jpa</artifactId>
@@ -19,7 +19,7 @@
         <docker.image.exposed.port>8888</docker.image.exposed.port>
         <docker.image.dockerfile.dir>${basedir}/../docker</docker.image.dockerfile.dir>
     </properties>
-    
+
     <dependencies>
         <!-- Spring Boot -->
         <dependency>
@@ -41,7 +41,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        
+
         <!-- Spring Cloud-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -51,32 +51,32 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-        
+
         <!-- SEATA dependencies -->
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
-        
+
         <!-- Alibaba dependencies -->
-<!--        <dependency>
+        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-seata</artifactId>
             <version>${alibaba.cloud.version}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${alibaba.druid.version}</version>
         </dependency>
-        
+
         <!-- MySQL dependencies -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>     
+        </dependency>
     </dependencies>
 
     <build>
