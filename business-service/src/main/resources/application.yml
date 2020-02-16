@@ -1,0 +1,26 @@
+server:
+    port: 8084
+spring:
+    application:
+        name: business-service    
+    cloud:
+        alibaba:
+            seata:
+                tx-service-group: fsp_tx_group
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://discovery-server:8761/eureka/
+feign:
+    hystrix:
+        enabled: false
+logging:
+    level:
+        io:
+            seata: debug
+    org:
+        springframework:
+            cloud:
+                alibaba:
+                    seata:
+                        web: debug
