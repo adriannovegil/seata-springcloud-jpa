@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import io.seata.rm.datasource.DataSourceProxy;
 
 @Configuration
 public class DataSourceConfig {
@@ -22,14 +23,14 @@ public class DataSourceConfig {
         return new DruidDataSource();
     }
 
-//    /**
-//     * 
-//     * @param druidDataSource
-//     * @return 
-//     */
-//    @Primary
-//    @Bean("dataSource")
-//    public DataSource dataSource(DruidDataSource druidDataSource) {
-//        return new DataSourceProxy(druidDataSource);
-//    }
+    /**
+     * 
+     * @param druidDataSource
+     * @return 
+     */
+    @Primary
+    @Bean("dataSource")
+    public DataSource dataSource(DruidDataSource druidDataSource) {
+        return new DataSourceProxy(druidDataSource);
+    }
 }

@@ -47,12 +47,18 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-
-        <!-- Alibaba dependencies -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-alibaba-seata -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-            <version>${alibaba.cloud.version}</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-seata</artifactId>
+            <version>0.9.0.RELEASE</version>
+        </dependency>
+
+        <!-- Seata dependencies -->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+            <version>${seata.version}</version>
         </dependency>
     </dependencies>
 
