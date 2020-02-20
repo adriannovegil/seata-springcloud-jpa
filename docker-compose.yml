@@ -112,27 +112,27 @@ services:
   # Infrastructure
   # ==========================================================================
   # Discovery service
-  discovery-server:
-    image: seata-springcloud-jpa/discovery-server
-    container_name: discovery-server
-    environment:
-      - INSPECTIT_SERVICE_NAME=discovery-server
-      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
-      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
-      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    depends_on:
-      - ocelot-config-server
-      - agent
-    entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://ocelot-config-server:8090 -timeout=300s -- &&
-      java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
-      -javaagent:/agent/inspectit-ocelot-agent.jar
-      -jar /app.jar"]
-    volumes:
-      - agent-vol:/agent
-    ports:
-      - 8761:8761
+  #discovery-server:
+  #  image: seata-springcloud-jpa/discovery-server
+  #  container_name: discovery-server
+  #  environment:
+  #    - INSPECTIT_SERVICE_NAME=discovery-server
+  #    - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
+  #    - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
+  #    - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
+  #    - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+  #  depends_on:
+  #    - ocelot-config-server
+  #    - agent
+  #  entrypoint: ["sh", "-c","
+  #    ./dockerize -wait=tcp://ocelot-config-server:8090 -timeout=300s -- &&
+  #    java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+  #    -javaagent:/agent/inspectit-ocelot-agent.jar
+  #    -jar /app.jar"]
+  #  volumes:
+  #    - agent-vol:/agent
+  #  ports:
+  #    - 8761:8761
 
   # Distributed transactions
   # ============================================================================
@@ -179,120 +179,120 @@ services:
   # Services
   # ==========================================================================
   # Account service
-  account-service:
-    image: seata-springcloud-jpa/account-service
-    container_name: seata-account-service
-    environment:
-      - INSPECTIT_SERVICE_NAME=account-service
-      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
-      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
-      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    depends_on:
-      - ocelot-config-server
-      - agent
-      - account-service-db
-      - discovery-server
-      - seata-server
-    entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
-      java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
-      -javaagent:/agent/inspectit-ocelot-agent.jar
-      -jar /app.jar"]
-    volumes:
-      - agent-vol:/agent
-    ports:
-      - 8083:8083
+  #account-service:
+  #  image: seata-springcloud-jpa/account-service
+  #  container_name: seata-account-service
+  #  environment:
+  #    - INSPECTIT_SERVICE_NAME=account-service
+  #    - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
+  #    - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
+  #    - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
+  #    - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+  #  depends_on:
+  #    - ocelot-config-server
+  #    - agent
+  #    - account-service-db
+  #    - discovery-server
+  #    - seata-server
+  #  entrypoint: ["sh", "-c","
+  #    ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
+  #    java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+  #    -javaagent:/agent/inspectit-ocelot-agent.jar
+  #    -jar /app.jar"]
+  #  volumes:
+  #    - agent-vol:/agent
+  #  ports:
+  #    - 8083:8083
 
   # Business service
-  business-service:
-    image: seata-springcloud-jpa/business-service
-    container_name: seata-business-service
-    environment:
-      - INSPECTIT_SERVICE_NAME=business-service
-      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
-      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
-      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    depends_on:
-      - ocelot-config-server
-      - agent
-      - discovery-server
-      - seata-server
-    entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
-      java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
-      -javaagent:/agent/inspectit-ocelot-agent.jar
-      -jar /app.jar"]
-    volumes:
-      - agent-vol:/agent
-    ports:
-      - 8084:8084
+  #business-service:
+  #  image: seata-springcloud-jpa/business-service
+  #  container_name: seata-business-service
+  #  environment:
+  #    - INSPECTIT_SERVICE_NAME=business-service
+  #    - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
+  #    - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
+  #    - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
+  #    - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+  #  depends_on:
+  #    - ocelot-config-server
+  #    - agent
+  #    - discovery-server
+  #    - seata-server
+  #  entrypoint: ["sh", "-c","
+  #    ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
+  #    java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+  #    -javaagent:/agent/inspectit-ocelot-agent.jar
+  #    -jar /app.jar"]
+  #  volumes:
+  #    - agent-vol:/agent
+  #  ports:
+  #    - 8084:8084
 
   # Order service
-  order-service:
-    image: seata-springcloud-jpa/order-service
-    container_name: seata-order-service
-    environment:
-      - INSPECTIT_SERVICE_NAME=order-service
-      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
-      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
-      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    depends_on:
-      - ocelot-config-server
-      - agent
-      - discovery-server
-      - order-service-db
-      - seata-server
-    entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
-      java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
-      -javaagent:/agent/inspectit-ocelot-agent.jar
-      -jar /app.jar"]
-    volumes:
-      - agent-vol:/agent
-    ports:
-      - 8082:8082
+  #order-service:
+  #  image: seata-springcloud-jpa/order-service
+  #  container_name: seata-order-service
+  #  environment:
+  #    - INSPECTIT_SERVICE_NAME=order-service
+  #    - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
+  #    - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
+  #    - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
+  #    - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+  #  depends_on:
+  #    - ocelot-config-server
+  #    - agent
+  #    - discovery-server
+  #    - order-service-db
+  #    - seata-server
+  #  entrypoint: ["sh", "-c","
+  #    ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
+  #    java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+  #    -javaagent:/agent/inspectit-ocelot-agent.jar
+  #    -jar /app.jar"]
+  #  volumes:
+  #    - agent-vol:/agent
+  #  ports:
+  #    - 8082:8082
 
   # Storage service
-  storage-service:
-    image: seata-springcloud-jpa/storage-service
-    container_name: seata-storage-service
-    environment:
-      - INSPECTIT_SERVICE_NAME=storage-service
-      - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
-      - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
-      - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
-      - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
-    depends_on:
-      - ocelot-config-server
-      - agent
-      - discovery-server
-      - storage-service-db
-      - seata-server
-    entrypoint: ["sh", "-c","
-      ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
-      java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
-      -javaagent:/agent/inspectit-ocelot-agent.jar
-      -jar /app.jar"]
-    volumes:
-      - agent-vol:/agent
-    ports:
-      - 8081:8081
+  #storage-service:
+  #  image: seata-springcloud-jpa/storage-service
+  #  container_name: seata-storage-service
+  #  environment:
+  #    - INSPECTIT_SERVICE_NAME=storage-service
+  #    - INSPECTIT_CONFIG_HTTP_URL=http://ocelot-config-server:8090/api/v1/agent/configuration
+  #    - INSPECTIT_EXPORTERS_METRICS_PROMETHEUS_ENABLED=false
+  #    - INSPECTIT_EXPORTERS_METRICS_INFLUX_URL=http://influxdb-server:8086
+  #    - INSPECTIT_EXPORTERS_TRACING_ZIPKIN_URL=http://zipkin-server:9411/api/v2/spans
+  #  depends_on:
+  #    - ocelot-config-server
+  #    - agent
+  #    - discovery-server
+  #    - storage-service-db
+  #    - seata-server
+  #  entrypoint: ["sh", "-c","
+  #    ./dockerize -wait=tcp://discovery-server:8761 -wait=tcp://seata-server:8091 -timeout=300s -- &&
+  #    java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.security.egd=file:/dev/./urandom
+  #    -javaagent:/agent/inspectit-ocelot-agent.jar
+  #    -jar /app.jar"]
+  #  volumes:
+  #    - agent-vol:/agent
+  #  ports:
+  #    - 8081:8081
 
   # Load
   # ============================================================================
   # Load server
-  load-server:
-    build: ./docker/load-server
-    image: seata-springcloud-jpa/load-server
-    container_name: seata-load-server
-    depends_on:
-      - account-service
-      - business-service
-      - order-service
-      - storage-service
+  #load-server:
+  #  build: ./docker/load-server
+  #  image: seata-springcloud-jpa/load-server
+  #  container_name: seata-load-server
+  #  depends_on:
+  #    - account-service
+  #    - business-service
+  #    - order-service
+  #    - storage-service
 
 volumes:
   agent-vol:
