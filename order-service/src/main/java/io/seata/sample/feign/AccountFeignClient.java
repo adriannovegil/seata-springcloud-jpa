@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 
-@FeignClient(name = "account-service", url = "127.0.0.1:8083")
+@FeignClient(name = "account-service")
 public interface AccountFeignClient {
 
     @GetMapping("/debit")
