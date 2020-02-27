@@ -294,13 +294,13 @@ services:
       - 8086:8086
 
   # Prometheus
-  prometheus:
+  prometheus-server:
     image: prom/prometheus:v2.9.2
     container_name: prometheus
     depends_on:
       - seata-server
     volumes:
-      - ./docker/prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml    
+      - ./docker/prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
 
