@@ -1,23 +1,1085 @@
 {
-  "id": 6,
-  "title": "seata",
-  "originalTitle": "seata",
-  "tags": [],
-  "style": "dark",
-  "timezone": "",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 8,
   "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Global Transaction",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 18,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(seata_transaction)",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 2,
+          "refId": "A",
+          "step": 2
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Global Transaction Activity Count",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(seata_transaction{action=\"new\"}[1m])) by (status)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Global Transaction Create",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(seata_transaction{status=\"commited\"}[1m])) by (status)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Global Transaction Commit",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 12,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(rate(seata_transaction{status=\"rollbacked\"}[1m])) by (status)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Global Transaction Rollback",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Panel Title",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
+      "id": 16,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Panel Title",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "LocalPrometheus",
+      "editable": true,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 28
+      },
+      "id": 14,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Panel Title",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 2,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "LocalPrometheus",
+          "editable": true,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 2
+          },
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Panel Title",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "LocalPrometheus",
+          "editable": true,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 2
+          },
+          "id": 22,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Panel Title",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "LocalPrometheus",
+          "editable": true,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 11
+          },
+          "id": 28,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Panel Title",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "LocalPrometheus",
+          "editable": true,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 11
+          },
+          "id": 30,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Panel Title",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "LocalPrometheus",
+          "editable": true,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 20
+          },
+          "id": 24,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Panel Title",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "LocalPrometheus",
+          "editable": true,
+          "fill": 1,
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 20
+          },
+          "id": 26,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Panel Title",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Branch Transaction",
+      "type": "row"
+    }
+  ],
+  "refresh": "30s",
   "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "list": []
   },
-  "annotations": {
-    "list": []
-  },
   "time": {
-    "from": "now-6h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -45,1030 +1107,8 @@
       "30d"
     ]
   },
-  "uid": "70g0x4lWz",
-  "version": 1,
-  "rows": [
-      {
-          "title": "Global Transaction",
-          "panels": [
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 1,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(seata_server_global_active_total)",
-                          "intervalFactor": 2,
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction Activity Count",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 2,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(rate(seata_server_action_global_total{action=\"new\"}[1m])) by (status)",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{status}}",
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction Create",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 3,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(rate(seata_server_action_global_total{action=\"commit\"}[1m])) by (status)",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{status}}",
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction Commit",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 4,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(rate(seata_server_action_global_total{action=\"rollback\"}[1m])) by (status)",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{status}}",
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction Rollback",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 5,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "histogram_quantile(0.99, sum(rate(seata_server_global_duration_seconds_bucket[1m])) by (le))",
-                          "intervalFactor": 2,
-                          "legendFormat": "",
-                          "refId": "A",
-                          "step": 4
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction 99% Activity Duration",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 6,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "histogram_quantile(0.9999, sum(rate(seata_server_global_duration_seconds_bucket[1m])) by (le))",
-                          "intervalFactor": 2,
-                          "refId": "A",
-                          "step": 4
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction 99.99% Activity Duration",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 7,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "histogram_quantile(0.50, sum(rate(seata_server_global_duration_seconds_bucket[1m])) by (le))",
-                          "intervalFactor": 2,
-                          "refId": "A",
-                          "step": 4
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Global Transaction 50% Activity Duration",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              }
-          ],
-          "showTitle": false,
-          "titleSize": "h6",
-          "height": "250px",
-          "repeat": null,
-          "repeatRowId": null,
-          "repeatIteration": null,
-          "collapse": false
-      },
-      {
-          "title": "Branch Transaction",
-          "panels": [
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 8,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(rate(seata_server_action_branch_total{action=\"new\"}[1m])) by (status)",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{status}}",
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Branch Transaction Create",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 9,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(rate(seata_server_action_branch_total{action=\"report\"}[1m])) by (status)",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{status}}",
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Branch Transaction Report",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 10,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "sum(rate(seata_server_action_branch_total{action=\"ack\"}[1m])) by (status)",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{status}}",
-                          "refId": "A",
-                          "step": 2
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Branch Transaction phase two complete",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "short",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 11,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "histogram_quantile(0.99, sum(rate(seata_server_branch_duration_seconds_bucket[1m])) by (le, phase))",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{phase}}",
-                          "refId": "A",
-                          "step": 4
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Branch Transaction 99% Duration",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 12,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "histogram_quantile(0.9999, sum(rate(seata_server_branch_duration_seconds_bucket[1m])) by (le, phase))",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{phase}}",
-                          "refId": "A",
-                          "step": 4
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Branch Transaction 99.99% Duration",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              },
-              {
-                  "aliasColors": {},
-                  "bars": false,
-                  "datasource": "LocalPrometheus",
-                  "editable": true,
-                  "error": false,
-                  "fill": 1,
-                  "grid": {},
-                  "id": 13,
-                  "legend": {
-                      "alignAsTable": true,
-                      "avg": true,
-                      "current": true,
-                      "max": true,
-                      "min": false,
-                      "rightSide": true,
-                      "show": true,
-                      "total": false,
-                      "values": true
-                  },
-                  "lines": true,
-                  "linewidth": 2,
-                  "links": [],
-                  "nullPointMode": "connected",
-                  "percentage": false,
-                  "pointradius": 5,
-                  "points": false,
-                  "renderer": "flot",
-                  "seriesOverrides": [],
-                  "span": 6,
-                  "stack": false,
-                  "steppedLine": false,
-                  "targets": [
-                      {
-                          "expr": "histogram_quantile(0.50, sum(rate(seata_server_branch_duration_seconds_bucket[1m])) by (le, phase))",
-                          "intervalFactor": 2,
-                          "legendFormat": "{{phase}}",
-                          "refId": "A",
-                          "step": 4
-                      }
-                  ],
-                  "thresholds": [],
-                  "timeFrom": null,
-                  "timeShift": null,
-                  "title": "Branch Transaction 50% Duration",
-                  "tooltip": {
-                      "msResolution": false,
-                      "shared": true,
-                      "sort": 0,
-                      "value_type": "cumulative"
-                  },
-                  "type": "graph",
-                  "xaxis": {
-                      "mode": "time",
-                      "name": null,
-                      "show": true,
-                      "values": []
-                  },
-                  "yaxes": [
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": null,
-                          "show": true
-                      },
-                      {
-                          "format": "s",
-                          "label": null,
-                          "logBase": 1,
-                          "max": null,
-                          "min": 1,
-                          "show": true
-                      }
-                  ]
-              }
-          ],
-          "showTitle": false,
-          "titleSize": "h6",
-          "height": "250px",
-          "repeat": null,
-          "repeatRowId": null,
-          "repeatIteration": null,
-          "collapse": false
-      }
-    ]
+  "timezone": "",
+  "title": "Seata Server",
+  "uid": "8aJ7XVlZk",
+  "version": 13
 }

@@ -34,7 +34,8 @@
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
         
         <!-- Seata version -->
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
+        <spring-cloud-alibaba-seata>2.2.0.RELEASE</spring-cloud-alibaba-seata>
         
         <!-- Docker plugin configuration -->
         <docker.image.prefix>seata-springcloud-jpa</docker.image.prefix>
@@ -91,7 +92,7 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-seata</artifactId>
-                <version>2.0.0.RELEASE</version>
+                <version>${spring-cloud-alibaba-seata}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>io.seata</groupId>
@@ -104,22 +105,11 @@
                 <artifactId>seata-all</artifactId>
                 <version>${seata.version}</version>
             </dependency>
-<!--            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>5.0.4.RELEASE</version>
-            </dependency>-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.11</version>
-            </dependency>     
-<!--            <dependency>
-                <groupId>org.springframework.samples.petclinic.opencensus</groupId>                
-                <artifactId>spring-petclinic-opencensus-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>-->
-                   
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
