@@ -23,16 +23,10 @@ scrape_configs:
     - seata-server:9898
 - job_name: account_service_db_exporter
   static_configs:
-  - targets: ['account-service-db-exporter:9104']
-  labels:
-  alias: account-service-db-exporter
+  - targets: ['account-service-db-exporter:9104']    
 - job_name: order_service_db_exporter
   static_configs:
-  - targets: ['order-service-db-exporter:9105']
-  labels:
-  alias: order-service-db-exporter
+  - targets: ['order-service-db-exporter:9104']    
 - job_name: storage_service_db_exporter
   static_configs:
-  - targets: ['storage-service-db-exporter:9106']
-  labels:
-  alias: storage-service-db-exporter
+  - targets: ['storage-service-db-exporter:9104']    
