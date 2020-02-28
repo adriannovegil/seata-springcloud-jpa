@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableFeignClients
-@EnableEurekaClient
-@EnableJpaRepositories
 @SpringBootApplication
+@EnableFeignClients
+@EnableJpaRepositories
+@EnableEurekaClient
 public class OrderApplication {
 
     public static void main(String[] args) {
