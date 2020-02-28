@@ -15,11 +15,10 @@ public class BusinessService {
     private OrderFeignClient orderFeignClient;
 
     /**
-     * 减库存，下订单
-     *
+     * 
      * @param userId
      * @param commodityCode
-     * @param orderCount
+     * @param orderCount 
      */
     @GlobalTransactional
     public void purchase(String userId, String commodityCode, int orderCount) {
