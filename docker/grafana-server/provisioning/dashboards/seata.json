@@ -240,7 +240,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(seata_transaction{status=\"commited\"}[1m])) by (status)",
+          "expr": "sum(rate(seata_transaction{status=\"committed\"}[1m])) by (status)",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"

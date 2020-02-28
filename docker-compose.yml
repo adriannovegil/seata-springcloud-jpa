@@ -124,6 +124,17 @@ services:
     ports:
       - 3306:3306
 
+  # Account Data Base Exporter
+  account-service-db-exporter:
+    image: "prom/mysqld-exporter"
+    container_name: seata-account-service-db-exporter
+    environment:
+    - DATA_SOURCE_NAME=root:123456@(account-service-db:3306)/
+    depends_on:
+    - account-service-db
+    ports:
+    - "9104:9104"
+
   # Order Data Base
   order-service-db:
     image: mysql:5.7
@@ -138,6 +149,17 @@ services:
     ports:
       - 3308:3306
 
+  # Order Data Base Exporter
+  order-service-db-exporter:
+    image: "prom/mysqld-exporter"
+    container_name: seata-order-service-db-exporter
+    environment:
+    - DATA_SOURCE_NAME=root:123456@(order-service-db:3306)/
+    depends_on:
+    - order-service-db
+    ports:
+    - "9105:9105"
+
   # Storage Data Base
   storage-service-db:
     image: mysql:5.7
@@ -151,6 +173,17 @@ services:
       sh -c "/usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
     ports:
       - 3307:3306
+
+  # Storage Data Base Exporter
+  storage-service-db-exporter:
+    image: "prom/mysqld-exporter"
+    container_name: seata-storage-service-db-exporter
+    environment:
+    - DATA_SOURCE_NAME=root:123456@(storage-service-db:3306)/
+    depends_on:
+    - storage-service-db
+    ports:
+    - "9106:9106"
 
   # Services
   # ==========================================================================
